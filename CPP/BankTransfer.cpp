@@ -1,6 +1,4 @@
-// BankTransfer.h
 #pragma once
-
 #include <algorithm>
 #include <cctype>
 #include <stdexcept>
@@ -32,7 +30,9 @@ class BankTransfer : public PaymentMethod {
         }
 
     public:
-    BankTransfer() = default;
+    BankTransfer(){
+
+    }
 
         /**
          * Membuat metode transfer bank.

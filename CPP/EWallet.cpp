@@ -1,6 +1,4 @@
-// EWallet.h
 #pragma once
-
 #include <algorithm>
 #include <cctype>
 #include <cmath>
@@ -39,7 +37,9 @@ private:
     }
 
 public:
-    EWallet() = default;
+    EWallet(){
+
+    }
 
     /**
      * Membuat e-wallet.

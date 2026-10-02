@@ -1,5 +1,4 @@
 #pragma once
-
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -30,7 +29,9 @@ class PaymentMethod {
 
 
     public:
-        PaymentMethod() = default;
+        PaymentMethod(){
+            
+        };
 
         /**
          * Membuat metode pembayaran.
