@@ -1,4 +1,5 @@
 public class EWallet extends PaymentMethod {
+
     private String provider;
     private String phoneNumber;
     private double balance = 0.0;
@@ -55,6 +56,6 @@ public class EWallet extends PaymentMethod {
         super.display();
         System.out.println("Provider: " + this.provider);
         System.out.println("Phone Number: " + this.phoneNumber);
-        System.out.println("Balance: " + this.balance);
+        System.out.printf("Balance: %.0f%n", this.balance);
     }
 }

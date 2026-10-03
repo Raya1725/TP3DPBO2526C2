@@ -54,7 +54,7 @@ public class CreditCard extends PaymentMethod {
     public void display() {
         super.display();
         System.out.println("Card Number: " + this.cardNumber);
-        System.out.println("Credit Limit: " + this.creditLimit);
+        System.out.printf("Credit Limit: %.0f%n", this.creditLimit);        
         System.out.println("Expiry Date: " + this.expiryDate);
     }
 }
