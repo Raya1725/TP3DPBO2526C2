@@ -83,6 +83,7 @@ public class Main{
                     dataOption = sc.nextInt();
                     sc.nextLine();
                     String id;
+                    String userId;
                     String supportedCurreincies;
                     switch(dataOption){
                         case 1:{
@@ -91,6 +92,8 @@ public class Main{
                             String expiryDate;
                             System.out.print("Enter credit card id: ");
                             id = sc.nextLine();
+                            System.out.print("Enter user id: ");
+                            userId = sc.nextLine();
                             System.out.print("Enter supported currencies: ");
                             supportedCurreincies = sc.nextLine();
                             System.out.print("Enter card number: ");
@@ -105,6 +108,7 @@ public class Main{
                             System.out.print("Enter expiry date: ");
                             expiryDate = sc.nextLine();
                             user.getCreditCard().setId(id);
+                            user.getCreditCard().setUserId(userId);
                             user.getCreditCard().setSupportedCurrencies(supportedCurreincies);
                             user.getCreditCard().setCardNumber(cardNumber);
                             user.getCreditCard().setCreditLimit(creditLimit);
@@ -117,6 +121,8 @@ public class Main{
                             double balance;
                             System.out.print("Enter Ewallet id: ");
                             id = sc.nextLine();
+                            System.out.print("Enter user id: ");
+                            userId = sc.nextLine();
                             System.out.print("Enter supported currencies: ");
                             supportedCurreincies = sc.nextLine();
                             System.out.print("Enter provider: ");
@@ -131,6 +137,7 @@ public class Main{
                             balance = sc.nextDouble();
                             sc.nextLine();
                             user.getEWallet().setId(id);
+                            user.getEWallet().setUserId(userId);
                             user.getEWallet().setSupportedCurrencies(supportedCurreincies);
                             user.getEWallet().setProvider(provider);
                             user.getEWallet().setPhoneNumber(phoneNumber);
@@ -143,6 +150,8 @@ public class Main{
                             String virtualAccountNumber;
                             System.out.print("Enter bank id: ");
                             id = sc.nextLine();
+                            System.out.print("Enter user id: ");
+                            userId = sc.nextLine();
                             System.out.print("Enter supported currencies: ");
                             supportedCurreincies = sc.nextLine();
                             System.out.print("Enter bank name: ");
@@ -152,6 +161,7 @@ public class Main{
                             System.out.print("Enter virtual account number: ");
                             virtualAccountNumber = sc.nextLine();
                             user.getBankTransfer().setId(id);
+                            user.getBankTransfer().setUserId(userId);
                             user.getBankTransfer().setSupportedCurrencies(supportedCurreincies);
                             user.getBankTransfer().setBankName(bankName);
                             user.getBankTransfer().setAccountHolderName(accountHolderName);

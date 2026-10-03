@@ -99,6 +99,7 @@ int main(){
                     cin >> dataOption;
                 }
                 string id;
+                string userId;
                 string supportedCurrencies;
                 switch(dataOption){
                     case 1:{
@@ -107,6 +108,8 @@ int main(){
                         string expirydate;
                         cout << "Enter credit card id: ";
                         cin >> id;
+                        cout << "Enter user id: ";
+                        cin >> userId;
                         cin.ignore();
                         cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
@@ -124,6 +127,7 @@ int main(){
                         cout << "Enter expirty date: ";
                         cin >> expirydate;
                         user.getCreditCard().setId(id);
+                        user.getCreditCard().setUserId(userId);
                         user.getCreditCard().setSupportedCurrencies(supportedCurrencies);
                         user.getCreditCard().setCardNumber(cardNumber);
                         user.getCreditCard().setCreditLimit(creditLimit);
@@ -136,6 +140,8 @@ int main(){
                         double balance;
                         cout << "Enter ewallet id: ";
                         cin >> id;
+                        cout << "Enter user id: ";
+                        cin >> userId;
                         cin.ignore();
                         cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
@@ -153,6 +159,7 @@ int main(){
                         }
                         cin.ignore();
                         user.getEWallet().setId(id);
+                        user.getEWallet().setUserId(userId);
                         user.getEWallet().setSupportedCurrencies(supportedCurrencies);
                         user.getEWallet().setProvider(provider);
                         user.getEWallet().setPhoneNumber(phoneNumber);
@@ -165,6 +172,8 @@ int main(){
                         string virtualAccountNumber;
                         cout << "Enter bank id: ";
                         cin >> id;
+                        cout << "Enter user id: ";
+                        cin >> userId;
                         cin.ignore();
                         cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
@@ -175,6 +184,7 @@ int main(){
                         cout << "Enter virtual account number: ";
                         cin >> virtualAccountNumber;
                         user.getBankTransfer().setId(id);
+                        user.getBankTransfer().setUserId(userId);
                         user.getBankTransfer().setSupportedCurrencies(supportedCurrencies);
                         user.getBankTransfer().setBankName(bankName);
                         user.getBankTransfer().setAccountHolderName(accountHolderName);
