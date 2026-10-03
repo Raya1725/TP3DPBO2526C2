@@ -20,6 +20,16 @@ void displayAll(const vector<T>& list) {
     }
 }
 
+template <typename T>
+bool isIdExist(const vector<T>& list, const string& id) {
+    for (const T& item : list) {
+        if (item.getId() == id) {
+            return true;
+        }
+    }
+    return false;
+}
+
 int main(){
     
     ios::sync_with_stdio(0);
@@ -35,6 +45,13 @@ int main(){
         cout << "3. Exit program" << endl;
         cout << "Choose(1 - 3): ";
         cin >> option;
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "enter only number: ";
+            cin >> option;
+        }
+        cin.ignore();
         switch(option){
             int dataOption;
             case 1: {
@@ -44,6 +61,12 @@ int main(){
                 cout << "3. BankTransfer" << endl;
                 cout << "Choose(1 - 3): ";
                 cin >> dataOption;
+                while(cin.fail()){
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "enter only number: ";
+                    cin >> dataOption;
+                }
                 string id;
                 string userId;
                 string supportedCurrencies;
@@ -55,8 +78,16 @@ int main(){
                         string expirydate;
                         cout << "Enter credit card id: ";
                         cin >> id;
+                        while(isIdExist(DaftarCreditCard, id)){
+                            cout << "Id already exists, enter another: ";
+                            cin >> id;
+                        }
                         cout << "Enter user id: ";
                         cin >> userId;
+                        while(isIdExist(DaftarCreditCard, userId)){
+                            cout << "Id already exists, enter another: ";
+                            cin >> userId;
+                        }
                         cin.ignore();
                         cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
@@ -64,6 +95,13 @@ int main(){
                         cin >> cardNumber;
                         cout << "Enter credit limit: ";
                         cin >> creditLimit;
+                        while(cin.fail()){
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "enter only number: ";
+                            cin >> creditLimit;
+                        }
+                        cin.ignore();
                         cout << "Enter expirty date: ";
                         cin >> expirydate;
                         C = CreditCard(id, userId, supportedCurrencies, cardNumber, creditLimit, expirydate);
@@ -77,8 +115,16 @@ int main(){
                         double balance;
                         cout << "Enter ewallet id: ";
                         cin >> id;
+                        while(isIdExist(DaftarCreditCard, id)){
+                            cout << "Id already exists, enter another: ";
+                            cin >> id;
+                        }
                         cout << "Enter user id: ";
                         cin >> userId;
+                        while(isIdExist(DaftarCreditCard, userId)){
+                            cout << "Id already exists, enter another: ";
+                            cin >> userId;
+                        }
                         cin.ignore();
                         cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
@@ -88,6 +134,13 @@ int main(){
                         cin >> phoneNumber;
                         cout << "Enter balance: ";
                         cin >> balance;
+                        while(cin.fail()){
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "enter only number: ";
+                            cin >> balance;
+                        }
+                        cin.ignore();
                         E = EWallet(id, userId, supportedCurrencies, provider, phoneNumber, balance);
                         DaftarEWallet.push_back(E);
                         break;
@@ -99,8 +152,16 @@ int main(){
                         string virtualAccountNumber;
                         cout << "Enter bank id: ";
                         cin >> id;
+                        while(isIdExist(DaftarCreditCard, id)){
+                            cout << "Id already exists, enter another: ";
+                            cin >> id;
+                        }
                         cout << "Enter user id: ";
                         cin >> userId;
+                        while(isIdExist(DaftarCreditCard, userId)){
+                            cout << "Id already exists, enter another: ";
+                            cin >> userId;
+                        }
                         cin.ignore();
                         cout << "Enter suppoerted currencies: ";
                         getline(cin, supportedCurrencies);
