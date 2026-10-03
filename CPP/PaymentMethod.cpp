@@ -3,6 +3,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -73,9 +74,7 @@ class PaymentMethod {
             this->supportedCurrencies = supportedCurrencies;
         }
 
-        ~PaymentMethod(){
-
-        }
+        virtual ~PaymentMethod(){ }
 
         /*
           Menampilkan data umum metode pembayaran.

@@ -2,48 +2,61 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <limits>
 #include "PaymentMethod.cpp"
 #include "CreditCard.cpp"
 #include "EWallet.cpp"
 #include "BankTransfer.cpp"
+#include "User.cpp"
 
 using namespace std;
 
-template <typename T>
-void displayAll(const vector<T>& list) {
+/**
+ * Menampilkan daftar user lalu meminta user memilih salah satu.
+ *
+ * @return Indeks user yang dipilih, atau -1 jika daftar kosong atau pilihan tidak valid.
+ *
+ * Waktu: O(n), memori: O(1).
+ */
+int selectUser(const vector<User>& list) {
     if (list.empty()) {
-        cout << "No data." << endl;
+        cout << "No user yet." << endl;
+        return -1;
     }
-    for (const T& item : list) {
-        item.display();
-        cout << endl;
+    cout << "Select the user." << endl;
+    for (int i = 0; i < (int)list.size(); i++) {
+        cout << i + 1 << ". " << list[i].getName() << endl;
     }
-}
-
-template <typename T>
-bool isIdExist(const vector<T>& list, const string& id) {
-    for (const T& item : list) {
-        if (item.getId() == id) {
-            return true;
-        }
+    cout << "Choose(1 - " << list.size() << "): ";
+    int choice;
+    cin >> choice;
+    while (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "enter only number: ";
+        cin >> choice;
     }
-    return false;
+    if (choice < 1 || choice > (int)list.size()) {
+        cout << "option invalid" << endl;
+        return -1;
+    }
+    return choice - 1;
 }
 
 int main(){
-    
+
     ios::sync_with_stdio(0);
     cout << fixed << setprecision(0);
     int option;
-    vector<CreditCard> DaftarCreditCard;
-    vector<EWallet> DaftarEWallet;
-    vector<BankTransfer> DaftarBankTransfer;
+    int dataOption;
+    vector<User> DaftarUser;
     do{
         cout << "What you want to do with the data" << endl;
-        cout << "1. Edit data" << endl;
-        cout << "2. Show data" << endl;
-        cout << "3. Exit program" << endl;
-        cout << "Choose(1 - 3): ";
+        cout << "1. Add user" << endl;
+        cout << "2. Edit data" << endl;
+        cout << "3. Show data" << endl;
+        cout << "4. Exit program" << endl;
+        cout << "Choose(1 - 4): ";
         cin >> option;
         while(cin.fail()){
             cin.clear();
@@ -53,8 +66,26 @@ int main(){
         }
         cin.ignore();
         switch(option){
-            int dataOption;
             case 1: {
+                string name;
+                string address;
+                string email;
+                cout << "Enter name: ";
+                getline(cin, name);
+                cout << "Enter address: ";
+                getline(cin, address);
+                cout << "Enter email: ";
+                getline(cin, email);
+                DaftarUser.push_back(User(name, address, email));
+                break;
+            }
+
+            case 2: {
+                int userIndex = selectUser(DaftarUser);
+                if(userIndex == -1){
+                    break;
+                }
+                User& user = DaftarUser[userIndex];
                 cout << "Select the data you want to change." << endl;
                 cout << "1. CreditCard" << endl;
                 cout << "2. EWallet" << endl;
@@ -68,26 +99,14 @@ int main(){
                     cin >> dataOption;
                 }
                 string id;
-                string userId;
                 string supportedCurrencies;
                 switch(dataOption){
                     case 1:{
-                        CreditCard C = CreditCard();
                         string cardNumber;
                         double creditLimit;
                         string expirydate;
                         cout << "Enter credit card id: ";
                         cin >> id;
-                        while(isIdExist(DaftarCreditCard, id)){
-                            cout << "Id already exists, enter another: ";
-                            cin >> id;
-                        }
-                        cout << "Enter user id: ";
-                        cin >> userId;
-                        while(isIdExist(DaftarCreditCard, userId)){
-                            cout << "Id already exists, enter another: ";
-                            cin >> userId;
-                        }
                         cin.ignore();
                         cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
@@ -104,27 +123,19 @@ int main(){
                         cin.ignore();
                         cout << "Enter expirty date: ";
                         cin >> expirydate;
-                        C = CreditCard(id, userId, supportedCurrencies, cardNumber, creditLimit, expirydate);
-                        DaftarCreditCard.push_back(C);
+                        user.getCreditCard().setId(id);
+                        user.getCreditCard().setSupportedCurrencies(supportedCurrencies);
+                        user.getCreditCard().setCardNumber(cardNumber);
+                        user.getCreditCard().setCreditLimit(creditLimit);
+                        user.getCreditCard().setExpiryDate(expirydate);
                         break;
                     }
                     case 2:{
-                        EWallet E = EWallet();
                         string provider;
                         string phoneNumber;
                         double balance;
                         cout << "Enter ewallet id: ";
                         cin >> id;
-                        while(isIdExist(DaftarCreditCard, id)){
-                            cout << "Id already exists, enter another: ";
-                            cin >> id;
-                        }
-                        cout << "Enter user id: ";
-                        cin >> userId;
-                        while(isIdExist(DaftarCreditCard, userId)){
-                            cout << "Id already exists, enter another: ";
-                            cin >> userId;
-                        }
                         cin.ignore();
                         cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
@@ -141,29 +152,21 @@ int main(){
                             cin >> balance;
                         }
                         cin.ignore();
-                        E = EWallet(id, userId, supportedCurrencies, provider, phoneNumber, balance);
-                        DaftarEWallet.push_back(E);
+                        user.getEWallet().setId(id);
+                        user.getEWallet().setSupportedCurrencies(supportedCurrencies);
+                        user.getEWallet().setProvider(provider);
+                        user.getEWallet().setPhoneNumber(phoneNumber);
+                        user.getEWallet().setBalance(balance);
                         break;
                     }
                     case 3:{
-                        BankTransfer B = BankTransfer();
                         string bankName;
                         string accountHolderName;
                         string virtualAccountNumber;
                         cout << "Enter bank id: ";
                         cin >> id;
-                        while(isIdExist(DaftarCreditCard, id)){
-                            cout << "Id already exists, enter another: ";
-                            cin >> id;
-                        }
-                        cout << "Enter user id: ";
-                        cin >> userId;
-                        while(isIdExist(DaftarCreditCard, userId)){
-                            cout << "Id already exists, enter another: ";
-                            cin >> userId;
-                        }
                         cin.ignore();
-                        cout << "Enter suppoerted currencies: ";
+                        cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
                         cout << "Enter bank name: ";
                         cin >> bankName;
@@ -171,15 +174,23 @@ int main(){
                         cin >> accountHolderName;
                         cout << "Enter virtual account number: ";
                         cin >> virtualAccountNumber;
-                        B = BankTransfer(id, userId, supportedCurrencies, bankName, accountHolderName, virtualAccountNumber);
-                        DaftarBankTransfer.push_back(B);
+                        user.getBankTransfer().setId(id);
+                        user.getBankTransfer().setSupportedCurrencies(supportedCurrencies);
+                        user.getBankTransfer().setBankName(bankName);
+                        user.getBankTransfer().setAccountHolderName(accountHolderName);
+                        user.getBankTransfer().setVirtualAccountNumber(virtualAccountNumber);
                         break;
                     }
                 }
                 break;
             }
-            
-            case 2: {
+
+            case 3: {
+                int userIndex = selectUser(DaftarUser);
+                if(userIndex == -1){
+                    break;
+                }
+                User& user = DaftarUser[userIndex];
                 cout << "Select the data you want to show." << endl;
                 cout << "1. CreditCard" << endl;
                 cout << "2. EWallet" << endl;
@@ -188,33 +199,28 @@ int main(){
                 cout << "Choose(1 - 4): ";
                 cin >> dataOption;
                 switch(dataOption){
-                    case 1:{    
+                    case 1:{
                         cout << "Credit card data: " << endl;
                         cout << endl;
-                        displayAll(DaftarCreditCard);             
+                        user.getCreditCard().display();
                         break;
                     }
-                    case 2:{    
+                    case 2:{
                         cout << "Ewallet data: " << endl;
                         cout << endl;
-                        displayAll(DaftarEWallet);
+                        user.getEWallet().display();
                         break;
                     }
                     case 3:{
                         cout << "Bank transfer data: " << endl;
                         cout << endl;
-                        displayAll(DaftarBankTransfer);
+                        user.getBankTransfer().display();
                         break;
                     }
                     case 4:{
-                        cout << "Credit card data: " << endl;
-                        displayAll(DaftarCreditCard);             
+                        cout << "User data: " << endl;
                         cout << endl;
-                        cout << "Ewallet data: " << endl;
-                        displayAll(DaftarEWallet);
-                        cout << endl;
-                        cout << "Bank transfer data: " << endl;
-                        displayAll(DaftarBankTransfer);
+                        user.display();
                         cout << endl;
                         break;
                     }
@@ -222,17 +228,17 @@ int main(){
                 break;
             }
 
-            case 3: {
+            case 4: {
                 cout << "Program finished." << endl;
                 break;
             }
-            
+
             default: {
                 cout << "option invalid" << endl;
-            } 
-        
-        }   
-    }while(option != 3);
+            }
+
+        }
+    }while(option != 4);
 
     return 0;
 }

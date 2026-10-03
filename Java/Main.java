@@ -4,44 +4,47 @@ import java.util.ArrayList;
 public class Main{
 
     /**
-     * Mengecek apakah id sudah ada di daftar.
+     * Menampilkan daftar user lalu meminta user memilih salah satu.
+     *
+     * @return Indeks user yang dipilih, atau -1 jika daftar kosong atau pilihan tidak valid.
      *
      * Waktu: O(n), memori: O(1).
      */
-    static boolean isIdExist(ArrayList<? extends PaymentMethod> list, String id) {
-        for (PaymentMethod item : list) {
-            if (item.getId().equals(id)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /** Waktu: O(m * L), memori: O(1). */
-    static void displayAll(ArrayList<? extends PaymentMethod> list) {
+    static int selectUser(ArrayList<User> list, Scanner sc) {
         if (list.isEmpty()) {
-            System.out.println("No data.");
-            return;
+            System.out.println("No user yet.");
+            return -1;
         }
-        for (PaymentMethod item : list) {
-            item.display();
-            System.out.println();
+        System.out.println("Select the user.");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ". " + list.get(i).getName());
         }
+        System.out.print("Choose(1 - " + list.size() + "): ");
+        while(!sc.hasNextInt()){
+            System.out.print("enter only number: ");
+            sc.nextLine();
+        }
+        int choice = sc.nextInt();
+        sc.nextLine();
+        if (choice < 1 || choice > list.size()) {
+            System.out.println("option invalid");
+            return -1;
+        }
+        return choice - 1;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int option;
         int dataOption;
-        ArrayList<BankTransfer> daftarBankTransfers = new ArrayList<>();
-        ArrayList<EWallet> daftarEwallet = new ArrayList<>();
-        ArrayList<CreditCard> daftarCreditcards = new ArrayList<>();
+        ArrayList<User> daftarUser = new ArrayList<>();
         do{
             System.out.println("What you want to do with the data");
-            System.out.println("1. Edit data");
-            System.out.println("2. Show data");
-            System.out.println("3. Exit program");
-            System.out.print("Choose(1 - 3): ");
+            System.out.println("1. Add user");
+            System.out.println("2. Edit data");
+            System.out.println("3. Show data");
+            System.out.println("4. Exit program");
+            System.out.print("Choose(1 - 4): ");
             while(!sc.hasNextInt()){
                 System.out.print("enter only number: ");
                 sc.next();
@@ -50,6 +53,24 @@ public class Main{
             sc.nextLine();
             switch(option){
                 case 1:{
+                    String name;
+                    String address;
+                    String email;
+                    System.out.print("Enter name: ");
+                    name = sc.nextLine();
+                    System.out.print("Enter address: ");
+                    address = sc.nextLine();
+                    System.out.print("Enter email: ");
+                    email = sc.nextLine();
+                    daftarUser.add(new User(name, address, email));
+                    break;
+                }
+                case 2:{
+                    int userIndex = selectUser(daftarUser, sc);
+                    if(userIndex == -1){
+                        break;
+                    }
+                    User user = daftarUser.get(userIndex);
                     System.out.println("Select the data you want to change.");
                     System.out.println("1. CreditCard");
                     System.out.println("2. EWallet");
@@ -62,26 +83,14 @@ public class Main{
                     dataOption = sc.nextInt();
                     sc.nextLine();
                     String id;
-                    String userId;
                     String supportedCurreincies;
                     switch(dataOption){
                         case 1:{
-                            CreditCard C = new CreditCard();  
                             String cardNumber;
                             double creditLimit;
                             String expiryDate;
                             System.out.print("Enter credit card id: ");
                             id = sc.nextLine();
-                            while (isIdExist(daftarCreditcards, id)) {
-                                System.out.print("Id already exists, enter another: ");
-                                id = sc.nextLine();
-                            }
-                            System.out.print("Enter user id: ");
-                            userId = sc.nextLine();
-                            while (isIdExist(daftarCreditcards, userId)) {
-                                System.out.print("Id already exists, enter another: ");
-                                userId = sc.nextLine();
-                            }
                             System.out.print("Enter supported currencies: ");
                             supportedCurreincies = sc.nextLine();
                             System.out.print("Enter card number: ");
@@ -95,27 +104,19 @@ public class Main{
                             sc.nextLine();
                             System.out.print("Enter expiry date: ");
                             expiryDate = sc.nextLine();
-                            C = new CreditCard(id, userId, supportedCurreincies, cardNumber, creditLimit, expiryDate);
-                            daftarCreditcards.add(C);
+                            user.getCreditCard().setId(id);
+                            user.getCreditCard().setSupportedCurrencies(supportedCurreincies);
+                            user.getCreditCard().setCardNumber(cardNumber);
+                            user.getCreditCard().setCreditLimit(creditLimit);
+                            user.getCreditCard().setExpiryDate(expiryDate);
                             break;
                         }
                         case 2:{
-                            EWallet E;
                             String provider;
                             String phoneNumber;
                             double balance;
                             System.out.print("Enter Ewallet id: ");
                             id = sc.nextLine();
-                            while (isIdExist(daftarEwallet, id)) {
-                                System.out.print("Id already exists, enter another: ");
-                                id = sc.nextLine();
-                            }
-                            System.out.print("Enter user id: ");
-                            userId = sc.nextLine();
-                            while (isIdExist(daftarEwallet, userId)) {
-                                System.out.print("Id already exists, enter another: ");
-                                userId = sc.nextLine();
-                            }
                             System.out.print("Enter supported currencies: ");
                             supportedCurreincies = sc.nextLine();
                             System.out.print("Enter provider: ");
@@ -129,27 +130,19 @@ public class Main{
                             }
                             balance = sc.nextDouble();
                             sc.nextLine();
-                            E = new EWallet(id, userId, supportedCurreincies, provider, phoneNumber, balance);
-                            daftarEwallet.add(E);
+                            user.getEWallet().setId(id);
+                            user.getEWallet().setSupportedCurrencies(supportedCurreincies);
+                            user.getEWallet().setProvider(provider);
+                            user.getEWallet().setPhoneNumber(phoneNumber);
+                            user.getEWallet().setBalance(balance);
                             break;
                         }
                         case 3:{
-                            BankTransfer B;
                             String bankName;
                             String accountHolderName;
                             String virtualAccountNumber;
                             System.out.print("Enter bank id: ");
                             id = sc.nextLine();
-                            while (isIdExist(daftarBankTransfers, id)) {
-                                System.out.print("Id already exists, enter another: ");
-                                id = sc.nextLine();
-                            }
-                            System.out.print("Enter user id: ");
-                            userId = sc.nextLine();
-                            while (isIdExist(daftarBankTransfers, userId)) {
-                                System.out.print("Id already exists, enter another: ");
-                                userId = sc.nextLine();
-                            }
                             System.out.print("Enter supported currencies: ");
                             supportedCurreincies = sc.nextLine();
                             System.out.print("Enter bank name: ");
@@ -158,8 +151,11 @@ public class Main{
                             accountHolderName = sc.nextLine();
                             System.out.print("Enter virtual account number: ");
                             virtualAccountNumber = sc.nextLine();
-                            B = new BankTransfer(id, userId, supportedCurreincies, bankName, accountHolderName, virtualAccountNumber);
-                            daftarBankTransfers.add(B);
+                            user.getBankTransfer().setId(id);
+                            user.getBankTransfer().setSupportedCurrencies(supportedCurreincies);
+                            user.getBankTransfer().setBankName(bankName);
+                            user.getBankTransfer().setAccountHolderName(accountHolderName);
+                            user.getBankTransfer().setVirtualAccountNumber(virtualAccountNumber);
                             break;
                         }
                         default: {
@@ -169,7 +165,12 @@ public class Main{
                     }
                     break;
                 }
-                case 2:{
+                case 3:{
+                    int userIndex = selectUser(daftarUser, sc);
+                    if(userIndex == -1){
+                        break;
+                    }
+                    User user = daftarUser.get(userIndex);
                     System.out.println("Select the data you want to show.");
                     System.out.println("1. CreditCard");
                     System.out.println("2. EWallet");
@@ -185,28 +186,22 @@ public class Main{
                     switch(dataOption){
                         case 1:{
                             System.out.println("Credit card data: ");
-                            displayAll(daftarCreditcards);             
+                            user.getCreditCard().display();
                             break;
                         }
                         case 2:{
                             System.out.println("Ewallet data: ");
-                            displayAll(daftarEwallet);
+                            user.getEWallet().display();
                             break;
                         }
                         case 3:{
                             System.out.println("Bank transfer data: ");
-                            displayAll(daftarBankTransfers);
+                            user.getBankTransfer().display();
                             break;
                         }
                         case 4:{
-                            System.out.println("Credit card data: ");
-                            displayAll(daftarCreditcards);             
-                            System.out.println();
-                            System.out.println("Ewallet data: ");
-                            displayAll(daftarEwallet);
-                            System.out.println();
-                            System.out.println("Bank transfer data: ");
-                            displayAll(daftarBankTransfers);
+                            System.out.println("User data: ");
+                            user.display();
                             System.out.println();
                             break;
                         }
@@ -217,17 +212,17 @@ public class Main{
                     }
                     break;
                 }
-                case 3: {
+                case 4: {
                     System.out.println("Program finished.");
                     break;
                 }
-                
+
                 default: {
                     System.out.println("option invalid");
                     break;
                 }
             }
-        }while(option != 3);
+        }while(option != 4);
         sc.close();
     }
 }
