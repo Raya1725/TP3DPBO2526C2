@@ -5,3 +5,6 @@ Saya Renaldy Heryana dengan NIM 2509867 mengerjakan Tugas Praktikum 3 dalam mata
 
 # Struktur Repo
 <img src="struktur-repo.png" alt="gambar struktur file" width="400">
+
+# Design Diagram
+<img src="Design diagram class.png" alt="gambar struktur file" width="400">
