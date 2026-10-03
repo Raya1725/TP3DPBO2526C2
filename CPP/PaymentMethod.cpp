@@ -105,4 +105,21 @@ class PaymentMethod {
             requireNotEmpty(supportedCurrencies, "supportedCurrencies");
             this->supportedCurrencies.push_back(supportedCurrencies);
         }
+        ~PaymentMethod(){
+
+        }
+
+        /*
+          Menampilkan data umum metode pembayaran.
+          Waktu: O(n), memori: O(1), n = jumlah mata uang.
+         */
+        virtual void display() const {
+            cout << "ID: " << this->id << endl;
+            cout << "User ID: " << this->userID << endl;
+            cout << "Currencies: ";
+            for (const string& currency : this->supportedCurrencies) {
+                cout << currency << " ";
+            }
+            cout << endl;
+        }
 };

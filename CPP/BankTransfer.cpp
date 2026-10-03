@@ -30,9 +30,9 @@ class BankTransfer : public PaymentMethod {
         }
 
     public:
-    BankTransfer(){
+        BankTransfer(){
 
-    }
+        }
 
         /**
          * Membuat metode transfer bank.
@@ -89,5 +89,17 @@ class BankTransfer : public PaymentMethod {
         void setVirtualAccountNumber(const string& virtualAccountNumber) {
             requireValidVirtualAccountNumber(virtualAccountNumber);
             this->virtualAccountNumber = virtualAccountNumber;
+        }
+
+        ~BankTransfer(){
+
+        }
+
+        /** Waktu: O(n), memori: O(1). */
+        void display() const override {
+            PaymentMethod::display();
+            cout << "Bank Name: " << this->bankName << endl;
+            cout << "Account Holder Name: " << this->accountHolderName << endl;
+            cout << "Virtual Account Number: " << this->virtualAccountNumber << endl;
         }
 };

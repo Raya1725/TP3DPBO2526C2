@@ -90,4 +90,16 @@ class CreditCard : public PaymentMethod {
             requireNotEmpty(expiryDate, "expiryDate");
             this->expiryDate = expiryDate;
         }
+
+        ~CreditCard(){
+
+        }
+
+        /** Waktu: O(n), memori: O(1). */
+        void display() const override {
+            PaymentMethod::display();
+            cout << "Card Number: " << this->cardNumber << endl;
+            cout << "Credit Limit: " << this->creditLimit << endl;
+            cout << "Expiry Date: " << this->expiryDate << endl;
+        }
 };
