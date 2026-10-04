@@ -1,9 +1,6 @@
 #pragma once
-#include <algorithm>
-#include <cctype>
-#include <stdexcept>
+#include <iostream>
 #include <string>
-#include <vector>
 
 #include "PaymentMethod.cpp"
 
@@ -22,7 +19,7 @@ class CreditCard : public PaymentMethod {
         }
         /**
          * Membuat kartu kredit.
-         * Waktu: O(n + L), memori: O(n + L), n = jumlah mata uang, L = panjang string.
+         * Waktu: O(L), memori: O(L), L = panjang string.
          */
         CreditCard(const string& id, const string& userID, const string& supportedCurrencies, const string& cardNumber, double creditLimit, const string& expiryDate) : PaymentMethod(id, userID, supportedCurrencies){
             this->cardNumber = cardNumber;
@@ -45,26 +42,17 @@ class CreditCard : public PaymentMethod {
             return this->expiryDate; 
         }
 
-        /**
-         * @throws invalid_argument jika bukan 13-19 digit angka.
-         * Waktu: O(L), memori: O(L).
-         */
+        /** Waktu: O(L), memori: O(L). */
         void setCardNumber(const string& cardNumber) {
             this->cardNumber = cardNumber;
         }
 
-        /**
-         * @throws invalid_argument jika negatif atau NaN.
-         * Waktu: O(1), memori: O(1).
-         */
+        /** Waktu: O(1), memori: O(1). */
         void setCreditLimit(double creditLimit) {
             this->creditLimit = creditLimit;
         }
 
-        /**
-         * @throws invalid_argument jika kosong.
-         * Waktu: O(L), memori: O(L).
-         */
+        /** Waktu: O(L), memori: O(L). */
         void setExpiryDate(const string& expiryDate) {
             this->expiryDate = expiryDate;
         }
@@ -73,7 +61,7 @@ class CreditCard : public PaymentMethod {
 
         }
 
-        /** Waktu: O(n), memori: O(1). */
+        /** Waktu: O(L), memori: O(1). */
         void display() const override {
             PaymentMethod::display();
             cout << "Card Number: " << this->cardNumber << endl;

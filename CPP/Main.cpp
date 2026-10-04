@@ -178,9 +178,9 @@ int main(){
                         cout << "Enter supported currencies: ";
                         getline(cin, supportedCurrencies);
                         cout << "Enter bank name: ";
-                        cin >> bankName;
+                        getline(cin, bankName);
                         cout << "Enter account holder name: ";
-                        cin >> accountHolderName;
+                        getline(cin, accountHolderName);
                         cout << "Enter virtual account number: ";
                         cin >> virtualAccountNumber;
                         user.getBankTransfer().setId(id);
@@ -190,6 +190,9 @@ int main(){
                         user.getBankTransfer().setAccountHolderName(accountHolderName);
                         user.getBankTransfer().setVirtualAccountNumber(virtualAccountNumber);
                         break;
+                    }
+                    default: {
+                        cout << "option invalid" << endl;
                     }
                 }
                 break;
@@ -208,6 +211,12 @@ int main(){
                 cout << "4. All data" << endl;
                 cout << "Choose(1 - 4): ";
                 cin >> dataOption;
+                while(cin.fail()){
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "enter only number: ";
+                    cin >> dataOption;
+                }
                 switch(dataOption){
                     case 1:{
                         cout << "Credit card data: " << endl;
@@ -233,6 +242,9 @@ int main(){
                         user.display();
                         cout << endl;
                         break;
+                    }
+                    default: {
+                        cout << "option invalid" << endl;
                     }
                 }
                 break;

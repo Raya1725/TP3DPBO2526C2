@@ -1,9 +1,6 @@
 #pragma once
-#include <algorithm>
-#include <cctype>
-#include <stdexcept>
+#include <iostream>
 #include <string>
-#include <vector>
 
 #include "PaymentMethod.cpp"
 
@@ -23,7 +20,7 @@ class BankTransfer : public PaymentMethod {
 
         /**
          * Membuat metode transfer bank.
-         * Waktu: O(n + L), memori: O(n + L), n = jumlah mata uang, L = panjang string.
+         * Waktu: O(L), memori: O(L), L = panjang string.
          */
         BankTransfer(const string& id, const string& userID,
                     const string& supportedCurrencies,
@@ -50,23 +47,17 @@ class BankTransfer : public PaymentMethod {
             return this->virtualAccountNumber; 
         }
 
-        /**
-         * Waktu: O(L), memori: O(L).
-         */
+        /** Waktu: O(L), memori: O(L). */
         void setBankName(const string& bankName) {
             this->bankName = bankName;
         }
 
-        /**
-         * Waktu: O(L), memori: O(L).
-         */
+        /** Waktu: O(L), memori: O(L). */
         void setAccountHolderName(const string& accountHolderName) {
             this->accountHolderName = accountHolderName;
         }
 
-        /**
-         * Waktu: O(L), memori: O(L).
-         */
+        /** Waktu: O(L), memori: O(L). */
         void setVirtualAccountNumber(const string& virtualAccountNumber) {
             this->virtualAccountNumber = virtualAccountNumber;
         }
@@ -75,7 +66,7 @@ class BankTransfer : public PaymentMethod {
 
         }
 
-        /** Waktu: O(n), memori: O(1). */
+        /** Waktu: O(L), memori: O(1). */
         void display() const override {
             PaymentMethod::display();
             cout << "Bank Name: " << this->bankName << endl;

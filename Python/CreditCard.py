@@ -5,7 +5,7 @@ class CreditCard (PaymentMethod):
         super().__init__(id, userId, supportedCurrencies)
         self.__cardNumber = cardNumber
         self.__creditLimit = creditLimit
-        self.__expityDate = expiryDate
+        self.__expiryDate = expiryDate
 
     def getCardNumber(self):
         return self.__cardNumber
@@ -14,7 +14,7 @@ class CreditCard (PaymentMethod):
         return self.__creditLimit
 
     def getExpiryDate(self):
-        return self.__expityDate
+        return self.__expiryDate
 
     def setCardNumber(self, cardNumber):
         self.__cardNumber = cardNumber
@@ -23,10 +23,10 @@ class CreditCard (PaymentMethod):
         self.__creditLimit = creditLimit
 
     def setExpiryDate(self, expiryDate):
-        self.__expityDate = expiryDate
+        self.__expiryDate = expiryDate
 
     def display(self):
         super().display()
         print(F"Card Number: {self.__cardNumber}")
         print(F"Credit Limit: {self.__creditLimit}")
-        print(F"Expiry Date: {self.__expityDate}")
+        print(F"Expiry Date: {self.__expiryDate}")

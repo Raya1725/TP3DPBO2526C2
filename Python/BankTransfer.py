@@ -13,7 +13,7 @@ class BankTransfer (PaymentMethod):
     def getAccountHolderName(self):
         return self.__accountHolderName
 
-    def getSupportedCurrencies(self):
+    def getVirtualAccountNumber(self):
         return self.__virtualAccountNumber
 
     def setBankName(self, bankName):

@@ -1,9 +1,6 @@
 #pragma once
-#include <algorithm>
-#include <cctype>
-#include <cmath>
+#include <iostream>
 #include <string>
-#include <vector>
 
 #include "PaymentMethod.cpp"
 
@@ -23,7 +20,7 @@ class EWallet : public PaymentMethod {
 
         /**
          * Membuat e-wallet.
-         * Waktu: O(n + L), memori: O(n + L), n = jumlah mata uang, L = panjang string.
+         * Waktu: O(L), memori: O(L), L = panjang string.
          */
         EWallet(const string& id, const string& userID,
                 const string& supportedCurrencies,
@@ -43,31 +40,26 @@ class EWallet : public PaymentMethod {
         /** Waktu: O(1), memori: O(1). */
         double getBalance() const { return this->balance; }
 
-        /**
-         * Waktu: O(L), memori: O(L).
-         */
+        /** Waktu: O(L), memori: O(L). */
         void setProvider(const string& provider) {
             this->provider = provider;
         }
 
-        /**
-         * Waktu: O(L), memori: O(L).
-         */
+        /** Waktu: O(L), memori: O(L). */
         void setPhoneNumber(const string& phoneNumber) {
             this->phoneNumber = phoneNumber;
         }
 
-        /**
-         * Waktu: O(1), memori: O(1).
-         */
+        /** Waktu: O(1), memori: O(1). */
         void setBalance(double balance) {
             this->balance = balance;
         }
+
         ~EWallet(){
             
         }
 
-        /** Waktu: O(n), memori: O(1). */
+        /** Waktu: O(L), memori: O(1). */
         void display() const override {
             PaymentMethod::display();
             cout << "Provider: " << this->provider << endl;
