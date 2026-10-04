@@ -24,7 +24,7 @@ Saya Renaldy Heryana dengan NIM 2509867 mengerjakan Tugas Praktikum 3 dalam mata
 11. Program terus berulang sampai user memilih Exit program.
 
 # ERROR HANDLING
-Error handling saya buat ketika user memasukan sesuatu yang salah, misal user memasukan selain angka di masukan khusus angka seperti atribut balance dan credit limit, maka user harus mengulang masukan, contoh kedua ketika user memasukan id yang sudah ada di dalam data, maka user harus memasukan data nya ulang.
+Error handling saya buat untuk menangani masukan yang salah dari user. Pada masukan yang khusus angka, seperti pilihan menu, pilihan user, pilihan jenis data, credit limit, dan balance, jika user memasukkan selain angka maka program menampilkan pesan "enter only number" dan meminta masukan diulang sampai valid. Jika angka yang dimasukkan di luar pilihan yang tersedia, program menampilkan pesan "option invalid" dan kembali ke menu. Jika user memilih Edit data atau Show data saat belum ada user, program menampilkan pesan "No user yet." dan kembali ke menu utama.g.
 
 # PENJELASAN ATRIBUT DAN METHOD
 
