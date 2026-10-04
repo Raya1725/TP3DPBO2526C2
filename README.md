@@ -11,7 +11,7 @@ Saya Renaldy Heryana dengan NIM 2509867 mengerjakan Tugas Praktikum 3 dalam mata
 
 # ALUR PROGRAM
 
-1. Program dimulai dengan daftar user yang masih kosong
+1. Program dimulai dengan daftar user yang masih kosong.
 2. Program menampilkan menu utama: Add user, Edit data, Show data, dan Exit program.
 3. Input menu divalidasi. Jika bukan angka, program meminta input ulang.
 4. User dapat menambahkan user baru dengan mengisi nama, alamat, dan email.
